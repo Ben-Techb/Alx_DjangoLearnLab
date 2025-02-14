@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import YourModel  # Replace 'YourModel' with your actual model name
+from .models import Book
 
-admin.site.register(YourModel)  # Registers the model with the admin panel
+admin.site.register(Book)  
 
