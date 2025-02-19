@@ -32,25 +32,15 @@ def user_logout(request):
     return redirect('login')
 class CustomLoginView(LoginView):
     template_name = 'relationship_app/login.html'
-
-@user_passes_test(lambda user: user.profile.role == 'Admin')
+@user_passes_test(lambda user: user.userprofile.role == 'Admin')
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
-@user_passes_test(lambda user: user.userprofile.role == 'Admin')
-def Admin_view(request):
-    return render(request, 'relationship_app/admin_view.html')
-
 @user_passes_test(lambda user: user.userprofile.role == 'Librarian')
-def Librarian_view(request):
+def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
 
 @user_passes_test(lambda user: user.userprofile.role == 'Member')
-def Member_view(request):
+def member_view(request):
     return render(request, 'relationship_app/member_view.html')
-
-
-
-
-
 
