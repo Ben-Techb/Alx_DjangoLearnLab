@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from .models import Library, Book
+from django.contrib.auth.decorators import user_passes_test
 
 def book_list(request):
     books = Book.objects.all()
@@ -25,9 +26,21 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
-
 @login_required
 def user_logout(request):
     logout(request)
     return redirect('login')
+class CustomLoginView(LoginView):
+    template_name = 'relationship_app/login.html'
 
+@user_passes_test(lambda user: user.profile.role == 'Admin')
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+@user_passes_test(lambda user: user.profile.role == 'Librarian')
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+@user_passes_test(lambda user: user.profile.role == 'Member')
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
