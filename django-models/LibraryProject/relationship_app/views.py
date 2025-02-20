@@ -32,15 +32,19 @@ def user_logout(request):
     return redirect('login')
 class CustomLoginView(LoginView):
     template_name = 'relationship_app/login.html'
-@user_passes_test(lambda user: user.userprofile.role == 'Admin')
+from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
+from .models import UserProfile
+
+@user_passes_test(lambda user: hasattr(user, 'userprofile') and user.userprofile.role == 'Admin')
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
 
-@user_passes_test(lambda user: user.userprofile.role == 'Librarian')
+@user_passes_test(lambda user: hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian')
 def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
 
-@user_passes_test(lambda user: user.userprofile.role == 'Member')
+@user_passes_test(lambda user: hasattr(user, 'userprofile') and user.userprofile.role == 'Member')
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
