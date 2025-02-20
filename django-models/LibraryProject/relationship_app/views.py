@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
+from django.contrib.auth.views import LoginView
+
 from .models import Library, Book
 from django.contrib.auth.decorators import user_passes_test
 
@@ -30,5 +32,6 @@ def register(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
 class CustomLoginView(LoginView):
     template_name = 'relationship_app/login.html'
