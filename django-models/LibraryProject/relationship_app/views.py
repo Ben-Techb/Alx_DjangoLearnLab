@@ -32,21 +32,3 @@ def user_logout(request):
     return redirect('login')
 class CustomLoginView(LoginView):
     template_name = 'relationship_app/login.html'
-from django.shortcuts import render
-from django.contrib.auth.decorators import user_passes_test
-
-# Admin View: Only accessible by users with the 'Admin' role
-@user_passes_test(lambda user: hasattr(user, 'userprofile') and user.userprofile.role == 'Admin')
-def admin_view(request):
-    return render(request, 'relationship_app/admin_view.html')
-
-# Librarian View: Only accessible by users with the 'Librarian' role
-@user_passes_test(lambda user: hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian')
-def librarian_view(request):
-    return render(request, 'relationship_app/librarian_view.html')
-
-# Member View: Only accessible by users with the 'Member' role
-@user_passes_test(lambda user: hasattr(user, 'userprofile') and user.userprofile.role == 'Member')
-def member_view(request):
-    return render(request, 'relationship_app/member_view.html')
-
