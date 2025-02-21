@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import permission_required
 
 from .models import Library, Book
 from django.contrib.auth.decorators import user_passes_test
