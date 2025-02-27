@@ -87,7 +87,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, password, **extra_fields)
-
 class CustomUser(AbstractUser):
     username = None  
     email = models.EmailField(unique=True)
@@ -96,10 +95,8 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["date_of_birth"]
-
 
     def __str__(self):
         return self.email
