@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-thh5_r5(^bmcu2_96*=6klnox6#qds%xf$=p4jdn8%q%zk%z3-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -103,6 +103,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "https://trusted-cdn.com")
+CSP_STYLE_SRC = ("'self'", "https://trusted-styles.com")
+CSP_IMG_SRC = ("'self'", "https://images.com")
+CSP_FONT_SRC = ("'self'", "https://fonts.com")
+
+CSRF_COOKIE_HTTPONLY = True
+CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
