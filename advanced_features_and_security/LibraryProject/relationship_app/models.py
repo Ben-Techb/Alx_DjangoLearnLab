@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 class Author(models.Model):
@@ -14,7 +15,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')  # Fixed field name
 
     def __str__(self):
-        return self.title  # Fixed incorrect attribute
+        return self.title 
 
 class Library(models.Model):
     name = models.CharField(max_length=200)
@@ -47,7 +48,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.role}"
 
-# Automatically create a UserProfile when a new User is registered
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -73,13 +73,6 @@ class AuthorBook(models.Model):
     def __str__(self):
         return self.title
 
-
-
-
-
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.db import models
-
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -96,7 +89,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractUser):
-    username = None  # Remove username field
+    username = None  
     email = models.EmailField(unique=True)
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to="profile_pics/", null=True, blank=True)

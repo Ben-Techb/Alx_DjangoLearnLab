@@ -1,0 +1,9 @@
+from bookshelf.models import Book
+try:
+    book_to_delete = Book.objects.get(title="1984")
+    book_to_delete.delete()
+    print("The book has been deleted.")
+except Book.DoesNotExist:
+    print("The book with the title '1984' does not exist.")
+# Expected Output: The book has been deleted.
+
