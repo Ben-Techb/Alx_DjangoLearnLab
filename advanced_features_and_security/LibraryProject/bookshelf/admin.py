@@ -46,7 +46,15 @@ def assign_permissions():
     editors_group, created = Group.objects.get_or_create(name='Editors')
     admins_group, created = Group.objects.get_or_create(name='Admins')
     
-    can_view = Permission.objects.get(codename='can_view')
+def assign_permissions():
+    try:
+        can_view = Permission.objects.get(codename='can_view')
+        print("Permission found:", can_view)
+    except Permission.DoesNotExist:
+        print("⚠️ Permission 'can_view' does not exist. Skipping assignment.")
+        can_view = None 
+
+assign_permissions()
     can_create = Permission.objects.get(codename='can_create')
     can_edit = Permission.objects.get(codename='can_edit')
     can_delete = Permission.objects.get(codename='can_delete')
